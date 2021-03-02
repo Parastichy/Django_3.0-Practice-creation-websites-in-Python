@@ -1,3 +1,4 @@
+from django.core.exceptions import ValidationError
 from django.db import models
 
 
@@ -18,11 +19,25 @@ class Bb(models.Model):
         verbose_name = 'Объвление'
         ordering = ['-published']
 
-    def title_and_price(self): # Функциональное поле
+    def title_and_price(self):  # Функциональное поле
         if self.price:
             return '%s (%.2f)' % (self.title, self.price)
         else:
             return self.price
+
+    # Название функционального поля необязательный атрибут.
+    title_and_price.short_description = 'Название и цена'
+
+    def clean(self):
+        errors = {}
+        if not self.content:
+            errors['content'] = ValidationError('Укажите описание продоваемого товара')
+
+        if self.price and self.price < 0:
+            errors['price'] = ValidationError('Укажите не отрицательное значение цены')
+
+        if errors:
+            raise ValidationError(errors)
 
 
 class Rubric(models.Model):
