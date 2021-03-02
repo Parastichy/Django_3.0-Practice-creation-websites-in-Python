@@ -8,9 +8,10 @@ class Bb(models.Model):
     published = models.DateTimeField(auto_now_add=True, db_index=True, verbose_name='Опубликовано')
     rubric = models.ForeignKey('Rubric', null=True, on_delete=models.PROTECT, verbose_name='Рубрика')
 
-    KINDS = (('Купля-продажа', (('b', 'Куплю'), ('s', 'Продам'),)),
+    KINDS = ((None, 'Выбирите тип публикуемого объявления'),
+             ('Купля-продажа', (('b', 'Куплю'), ('s', 'Продам'))),
              ('Обмен', (('c', 'Обменяю'),)))
-    kind = models.CharField(max_length=1, choices=KINDS, default='s')
+    kind = models.CharField(max_length=1, choices=KINDS, default='s', verbose_name='Тип')
 
     class Meta:
         verbose_name_plural = 'Объявления'
