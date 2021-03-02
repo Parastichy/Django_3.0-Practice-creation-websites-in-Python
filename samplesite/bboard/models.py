@@ -18,6 +18,12 @@ class Bb(models.Model):
         verbose_name = 'Объвление'
         ordering = ['-published']
 
+    def title_and_price(self): # Функциональное поле
+        if self.price:
+            return '%s (%.2f)' % (self.title, self.price)
+        else:
+            return self.price
+
 
 class Rubric(models.Model):
     name = models.CharField(max_length=20, db_index=True, verbose_name='Название')
