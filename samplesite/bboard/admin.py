@@ -1,6 +1,6 @@
 from django.contrib import admin
 
-from .models import Bb, Rubric, AdvUser
+from .models import Bb, Rubric, AdvUser, Machine, Spare
 
 
 class BbAdmin(admin.ModelAdmin):
@@ -12,3 +12,5 @@ class BbAdmin(admin.ModelAdmin):
 admin.site.register(Bb, BbAdmin)
 admin.site.register(Rubric)
 admin.site.register(AdvUser)
+admin.site.register(Machine)
+admin.site.register(Spare)
