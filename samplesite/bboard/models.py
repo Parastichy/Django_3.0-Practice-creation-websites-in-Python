@@ -19,6 +19,10 @@ class Bb(models.Model):
         verbose_name_plural = 'Объявления'
         verbose_name = 'Объвление'
         ordering = ['-published']
+        # index_together = [
+        #     ['published', 'title'],
+        #     ['title', 'price', 'rubric'],
+        #     ]
 
     def title_and_price(self):  # Функциональное поле
         if self.price:
@@ -47,6 +51,9 @@ class Rubric(models.Model):
     def __str__(self):
         return self.name
 
+    def get_absolute_url(self):
+        return f'/bboard/{self.pk}/'
+
     class Meta:
         verbose_name_plural = 'Рубрики'
         verbose_name = 'Рубрика'
@@ -60,6 +67,7 @@ class AdvUser(models.Model):
 
 class Spare(models.Model):
     name = models.CharField(max_length=30)
+
 
 class Machine(models.Model):
     name = models.CharField(max_length=30)
