@@ -3,10 +3,15 @@ from django.core.exceptions import ValidationError
 from django.db import models
 
 
+def validate_even(val):
+    if val % 2 != 0:
+        raise ValidationError(f'Число {val} нечетное', code='odd')
+
+
 class Bb(models.Model):
     title = models.CharField(max_length=50, verbose_name='Товар')
     content = models.TextField(null=True, blank=True, verbose_name='Описание')
-    price = models.FloatField(null=True, blank=True, verbose_name='Цена')
+    price = models.FloatField(null=True, blank=True, verbose_name='Цена', validators=[validate_even])
     published = models.DateTimeField(auto_now_add=True, db_index=True, verbose_name='Опубликовано')
     rubric = models.ForeignKey('Rubric', null=True, on_delete=models.PROTECT, verbose_name='Рубрика')
 
