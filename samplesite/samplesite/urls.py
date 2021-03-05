@@ -14,7 +14,17 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.contrib import admin
+from django.http import HttpResponse
 from django.urls import path, include
+
+
+def index(request):
+    resp = HttpResponse('Здесь будет', content_type='text/plan; charset=utf-8')
+    resp.write(' главная')
+    resp.writelines((' страница', ' сайта'))
+    resp['keywords'] = 'Python, Django'
+    return resp
+
 
 urlpatterns = [
     path('bboard/', include('bboard.urls')),
@@ -27,4 +37,5 @@ urlpatterns = [
     # ])),
 
     path('admin/', admin.site.urls),
+    path('', index, ),
 ]
