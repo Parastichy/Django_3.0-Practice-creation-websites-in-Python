@@ -1,12 +1,13 @@
 from django.urls import path
 
-from .views import index, by_rubric, BbCreateView, add, add_save
+from .views import index, by_rubric, BbCreateView, add_and_save
 
 # Пример передачи контроллеру функций значений mode:
 # vals = {'mode': 'index'}
 urlpatterns = [
-    path('add/save/', add_save, name='add_save'),
-    path('add/', add, name='add'),
+    path('add/', add_and_save, name='add'),
+    # path('add/save/', add_save, name='add_save'),
+    # path('add/', add, name='add'),
 
     # path('add/', BbCreateView.as_view(), name='add'),
 
