@@ -22,7 +22,9 @@ def index(request):
     resp = HttpResponse('Здесь будет', content_type='text/plan; charset=utf-8')
     resp.write(' главная')
     resp.writelines((' страница', ' сайта'))
+
     resp['keywords'] = 'Python, Django'
+
     return resp
 
 
