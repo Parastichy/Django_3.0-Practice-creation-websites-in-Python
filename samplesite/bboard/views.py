@@ -1,5 +1,6 @@
 from django.http import HttpResponseRedirect
 from django.shortcuts import render
+from django.template.response import TemplateResponse
 from django.views.generic.edit import CreateView
 from django.urls import reverse_lazy, reverse
 
@@ -22,7 +23,8 @@ def index(request):
     bbs = Bb.objects.all()
     rubrics = Rubric.objects.all()
     context = {'bbs': bbs, 'rubrics': rubrics}
-    return render(request, 'bboard/index.html', context)
+    return TemplateResponse(request, 'bboard/index.html', context)
+    # return render(request, 'bboard/index.html', context)
 
 
 def by_rubric(request, rubric_id):
