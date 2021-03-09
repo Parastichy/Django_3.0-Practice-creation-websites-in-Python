@@ -1,3 +1,4 @@
+from django.core.paginator import Paginator
 from django.http import HttpResponseRedirect
 from django.shortcuts import render
 from django.template.response import TemplateResponse
@@ -21,10 +22,18 @@ class BbCreateView(CreateView):
 
 
 def index(request):
-    bbs = Bb.objects.all()
     rubrics = Rubric.objects.all()
-    context = {'bbs': bbs, 'rubrics': rubrics}
-    return TemplateResponse(request, 'bboard/index.html', context)
+    bbs = Bb.objects.all()
+    paginator = Paginator(bbs, 2)
+    if 'page' in request.GET:
+        page_num = request.GET['page']
+    else:
+        page_num = 1
+    page = paginator.get_page(page_num)
+    context = {'rubrics': rubrics, 'page': page, 'bbs': page.object_list}
+    # context = {'bbs': bbs, 'rubrics': rubrics}
+    # return TemplateResponse(request, 'bboard/index.html', context)
+    return render(request, 'bboard/index.html', context)
     # return render(request, 'bboard/index.html', context)
 
 

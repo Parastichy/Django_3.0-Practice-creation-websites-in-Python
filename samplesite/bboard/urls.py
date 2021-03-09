@@ -20,7 +20,7 @@ urlpatterns = [
 
     # Передача значений
     # path('<int:rubric_id>/', by_rubric, vals),
-    # path('', index, name='index'),
-    path('', BbIndexView.as_view(), name='index'),
+    path('', index, name='index'),
+    # path('', BbIndexView.as_view(), name='index'),
     path('<int:year>/<int:month>/<int:day>/', BbDayArchiveView.as_view()),
 ]
