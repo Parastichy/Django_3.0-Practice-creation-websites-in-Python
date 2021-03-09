@@ -1,13 +1,19 @@
 {% extends 'layout/basic.html' %}
 
 {% block content %}
+<p>
+    {% for d in date_list %}
+    {{ d.day }}
+    {% endfor %}
+</p>
 {% for bb in bbs %}
-<div>
-    <h2><a href="{% url 'detail' pk=bb.pk %}">{{ bb.title }}</a></h2>
+<div class="{% cycle 'bb1' 'bb2' 'bb3' 'bb4' %}">
+    <h2><a href="{% url 'detail' pk=bb.pk %}">{{ bb.title }} {{ forloop.counter }}</a></h2>
     <p>{{ bb.content }}</p>
     <p>{{ bb.title_and_price }}</p>
     <p><a href="{{ bb.rubric.get_absolute_url }}">{{ bb.rubric.name }}</a></p>
     <p>{{ bb.published|date:'d.m.Y H:i:s'}}</p>
+    <p>{% firstof bb.phone bb.email bb.price 'На деревню дедушки' %}</p>
 </div>
 {% endfor %}
 {% endblock %}

@@ -1,7 +1,7 @@
 from django.http import HttpResponseRedirect
 from django.shortcuts import render
 from django.template.response import TemplateResponse
-from django.views.generic import DetailView
+from django.views.generic import DetailView, ArchiveIndexView, DayArchiveView
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from django.urls import reverse_lazy, reverse
 
@@ -94,3 +94,21 @@ class BbDeleteView(DeleteView):
         context = super().get_context_data(*args, **kwargs)
         context['rubrics'] = Rubric.objects.all()
         return context
+
+class BbIndexView(ArchiveIndexView):
+    model = Bb
+    date_field = 'published'
+    date_list_period = 'day'
+    template_name = 'bboard/index.html'
+    context_object_name = 'bbs'
+    allow_empty = True
+
+    def get_context_data(self, *args, **kwargs):
+        context = super().get_context_data(*args, **kwargs)
+        context['rubrics'] = Rubric.objects.all()
+        return context
+
+class BbDayArchiveView(DayArchiveView):
+    model = Bb
+    date_field = 'published'
+    month_format = '%m'

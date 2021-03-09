@@ -6,7 +6,7 @@
 <p>Рубрика: {{ bb.rubric.name }}</p>
 <h2>{{ bb.title }}</h2>
 <p>{{ bb.content }}</p>
-<p>Цена: {{ bb.price }}</p>
+<p>Цена: {{ bb.price|default:'У товара нет цены'|upper }}</p>
 <a href="{% url 'edit' pk=bb.pk %}">Изменить</a>
 <p><a href="{% url 'delete' pk=bb.pk %}">Удалить</a></p>
 {% endblock %}
