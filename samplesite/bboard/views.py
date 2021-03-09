@@ -1,6 +1,7 @@
 from django.http import HttpResponseRedirect
 from django.shortcuts import render
 from django.template.response import TemplateResponse
+from django.views.generic import DetailView
 from django.views.generic.edit import CreateView
 from django.urls import reverse_lazy, reverse
 
@@ -64,3 +65,11 @@ def add_and_save(request):
         context = {'form': bbf}
         return render(request, 'bboard/create.html', context)
 
+
+class BbDetailView(DetailView):
+    model = Bb
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['rubrics'] = Rubric.objects.all()
+        return context
