@@ -2,7 +2,7 @@ from django.http import HttpResponseRedirect
 from django.shortcuts import render
 from django.template.response import TemplateResponse
 from django.views.generic import DetailView
-from django.views.generic.edit import CreateView, UpdateView
+from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from django.urls import reverse_lazy, reverse
 
 from .models import Bb, Rubric
@@ -79,6 +79,16 @@ class BbEditView(UpdateView):
     model = Bb
     form_class = BbForm
     success_url = '/'
+
+    def get_context_data(self, *args, **kwargs):
+        context = super().get_context_data(*args, **kwargs)
+        context['rubrics'] = Rubric.objects.all()
+        return context
+
+
+class BbDeleteView(DeleteView):
+    model = Bb
+    success_url = '/bboard/'
 
     def get_context_data(self, *args, **kwargs):
         context = super().get_context_data(*args, **kwargs)
