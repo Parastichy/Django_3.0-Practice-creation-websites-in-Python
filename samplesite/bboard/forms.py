@@ -1,3 +1,4 @@
+from django.contrib.auth.models import User
 from django.forms import ModelForm, DecimalField, modelform_factory
 from django.forms.widgets import Select
 from django import forms
@@ -40,4 +41,13 @@ class BbForm(forms.ModelForm):
 
     class Meta:
         model = Bb
-        fields = ('title', 'content', 'price', 'kind', 'rubric')
+        fields = ('title', 'content', 'price', 'rubric')
+
+
+class RegisterUserForm(forms.ModelForm):
+    password1 = forms.CharField(label='Пароль')
+    password2 = forms.CharField(label='Пароль (повторно)')
+
+    class Meta:
+        model = User
+        fields = ('username', 'email', 'password1', 'password2', 'first_name', 'last_name')
