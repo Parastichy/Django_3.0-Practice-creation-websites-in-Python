@@ -1,6 +1,6 @@
 from django.urls import path
 
-from .views import index, by_rubric, BbCreateView, add_and_save, BbDetailView, BbEditView, BbDeleteView, BbIndexView, \
+from .views import index, by_rubric, add_and_save, BbDetailView, BbEditView, BbDeleteView, BbIndexView, \
     BbDayArchiveView
 
 # Пример передачи контроллеру функций значений mode:
