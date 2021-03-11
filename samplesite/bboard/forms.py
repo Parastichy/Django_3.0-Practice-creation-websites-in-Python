@@ -1,3 +1,5 @@
+from django.core import validators
+
 from django.contrib.auth.models import User
 from django.forms import ModelForm, DecimalField, modelform_factory
 from django.forms.widgets import Select
@@ -32,7 +34,8 @@ from .models import Bb, Rubric
 # Создание формы путём полного объявления
 # Сложный вариант который позволяет описать поля формы во всех деталях
 class BbForm(forms.ModelForm):
-    title = forms.CharField(label='Название товара')
+    title = forms.CharField(label='Название товара', validators=[validators.MinLengthValidator(4)],
+                            error_messages={'min_length': 'Слишком короткое название товара'})
     content = forms.CharField(label='Описание', widget=forms.widgets.Textarea())
     price = forms.DecimalField(label='Цена', decimal_places=2)
     rubric = forms.ModelChoiceField(queryset=Rubric.objects.all(), label='Рубрика',
