@@ -30,7 +30,6 @@ from .models import Bb, Rubric
 #                            widgets={'rubric': Select(attrs={'size': 8})}
 #                            )
 
-
 # Создание формы путём полного объявления
 # Сложный вариант который позволяет описать поля формы во всех деталях
 class BbForm(forms.ModelForm):
