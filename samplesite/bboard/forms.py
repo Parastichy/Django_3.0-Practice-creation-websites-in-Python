@@ -1,6 +1,7 @@
 from django.core import validators
 
 from django.contrib.auth.models import User
+from django.core.exceptions import ValidationError
 from django.forms import ModelForm, DecimalField, modelform_factory
 from django.forms.widgets import Select
 from django import forms
@@ -44,6 +45,12 @@ class BbForm(forms.ModelForm):
     class Meta:
         model = Bb
         fields = ('title', 'content', 'price', 'rubric')
+
+    def clean_title(self):
+        val = self.cleaned_data['title']
+        if val == 'Прошлогодний снег':
+            raise ValidationError('К продаже не допускается')
+        return val
 
 
 class RegisterUserForm(forms.ModelForm):
