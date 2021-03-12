@@ -1,6 +1,7 @@
 from django.core.paginator import Paginator
+from django.forms import modelformset_factory
 from django.http import HttpResponseRedirect
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.template.response import TemplateResponse
 from django.views.generic import DetailView, ArchiveIndexView, DayArchiveView
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
@@ -35,6 +36,21 @@ def index(request):
     # return TemplateResponse(request, 'bboard/index.html', context)
     return render(request, 'bboard/index.html', context)
     # return render(request, 'bboard/index.html', context)
+
+
+def rubrics_edit(request):
+    RubricFormSet = modelformset_factory(Rubric, fields=('name',), can_delete=True, can_order=True)
+
+    if request.method == 'POST':
+        formset = RubricFormSet(request.POST)
+        if formset.is_valid():
+            formset.save()
+            return redirect('/')
+    else:
+        formset = RubricFormSet()
+        print(formset, 'forasd')
+    context = {'formset': formset}
+    return render(request, 'bboard/bb_edit_rubric_form.html', context)
 
 
 def by_rubric(request, rubric_id):
@@ -104,6 +120,7 @@ class BbDeleteView(DeleteView):
         context['rubrics'] = Rubric.objects.all()
         return context
 
+
 class BbIndexView(ArchiveIndexView):
     model = Bb
     date_field = 'published'
@@ -116,6 +133,7 @@ class BbIndexView(ArchiveIndexView):
         context = super().get_context_data(*args, **kwargs)
         context['rubrics'] = Rubric.objects.all()
         return context
+
 
 class BbDayArchiveView(DayArchiveView):
     model = Bb

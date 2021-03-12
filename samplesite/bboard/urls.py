@@ -1,7 +1,8 @@
 from django.urls import path
 
+
 from .views import index, by_rubric, add_and_save, BbDetailView, BbEditView, BbDeleteView, BbIndexView, \
-    BbDayArchiveView
+    BbDayArchiveView, rubrics_edit
 
 # Пример передачи контроллеру функций значений mode:
 # vals = {'mode': 'index'}
@@ -9,6 +10,7 @@ urlpatterns = [
     path('add/', add_and_save, name='add'),
     path('detail/<int:pk>/', BbDetailView.as_view(), name='detail'),
     path('edit/<int:pk>/', BbEditView.as_view(), name='edit'),
+    path('edit_rubric/', rubrics_edit, name='edit_rubric'),
     path('delete/<int:pk>/', BbDeleteView.as_view(), name='delete'),
     # path('add/save/', add_save, name='add_save'),
     # path('add/', add, name='add'),
