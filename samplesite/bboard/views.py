@@ -39,7 +39,7 @@ def index(request):
 
 
 def rubrics_edit(request):
-    RubricFormSet = modelformset_factory(Rubric, fields=('name',), can_delete=True, can_order=True)
+    RubricFormSet = modelformset_factory(Rubric, fields=('name',), can_delete=True, can_order=True, extra=10)
 
     if request.method == 'POST':
         formset = RubricFormSet(request.POST)
