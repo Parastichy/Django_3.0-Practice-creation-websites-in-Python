@@ -1,5 +1,5 @@
 from django.urls import path
-
+from django.contrib.auth.views import LoginView
 
 from .views import index, by_rubric, add_and_save, BbDetailView, BbEditView, BbDeleteView, BbIndexView, \
     BbDayArchiveView, rubrics_edit
@@ -23,6 +23,7 @@ urlpatterns = [
     # Передача значений
     # path('<int:rubric_id>/', by_rubric, vals),
     path('', index, name='index'),
+    path('accounts/login/', LoginView.as_view(), name='login'),
     # path('', BbIndexView.as_view(), name='index'),
     path('<int:year>/<int:month>/<int:day>/', BbDayArchiveView.as_view()),
 ]
