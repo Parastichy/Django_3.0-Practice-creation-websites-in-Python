@@ -1,6 +1,6 @@
 from django.urls import path
 from django.contrib.auth.views import LoginView, LogoutView, PasswordChangeView, PasswordChangeDoneView, \
-    PasswordResetView, PasswordResetConfirmView
+    PasswordResetView, PasswordResetConfirmView, PasswordResetCompleteView
 
 from .views import index, by_rubric, add_and_save, BbDetailView, BbEditView, BbDeleteView, BbIndexView, \
     BbDayArchiveView, rubrics_edit
@@ -40,6 +40,9 @@ urlpatterns = [
     path('accounts/reset/<uidb64>/<token>/',
          PasswordResetConfirmView.as_view(template_name='registration/confirm_password.html'),
          name='password_reset_confirm'),
+    path('accounts/reset/done/',
+         PasswordResetCompleteView.as_view(template_name='registration/password_confirmed.html'),
+         name='password_reset_complete'),
     # path('', BbIndexView.as_view(), name='index'),
     path('<int:year>/<int:month>/<int:day>/', BbDayArchiveView.as_view()),
 ]
