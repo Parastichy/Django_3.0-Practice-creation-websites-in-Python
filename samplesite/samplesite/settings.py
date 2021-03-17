@@ -39,6 +39,8 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'bboard.apps.BboardConfig',
     'testapp.apps.TestappConfig',
+    'captcha',
+
 ]
 
 MIDDLEWARE = [

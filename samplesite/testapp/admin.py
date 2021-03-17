@@ -1,9 +1,16 @@
 from django.contrib import admin
+import datetime
 
-from .models import AdvUser, Machine, Spare, Kit, Note
+from .models import *
 
-admin.site.register(AdvUser)
-admin.site.register(Machine)
-admin.site.register(Spare)
-admin.site.register(Kit)
-admin.site.register(Note)
+
+
+
+admin.site.register(Rubric)
+admin.site.register(SuperRubric)
+
+admin.site.register(SubRubric)
+admin.site.register(Bb)
+admin.site.register(AdditionalImage)
+admin.site.register(Comment)
+
