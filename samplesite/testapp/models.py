@@ -1,6 +1,6 @@
 from django.contrib.auth.models import User
 from django.db import models
-from django.contrib.contenttypes.fields import GenericForeignKey
+from django.contrib.contenttypes.fields import GenericForeignKey, GenericRelation
 from django.contrib.contenttypes.models import ContentType
 
 
@@ -16,6 +16,7 @@ class Spare(models.Model):
 class Machine(models.Model):
     name = models.CharField(max_length=30)
     spares = models.ManyToManyField(Spare, through='Kit', through_fields=('machine', 'spare'))
+    notes = GenericRelation('Note')
 
 
 class Kit(models.Model):
@@ -30,3 +31,11 @@ class Note(models.Model):
 
     object_id = models.PositiveIntegerField()
     content_object = GenericForeignKey(ct_field='content_type', fk_field='object_id')
+
+
+class Message(models.Model):
+    content = models.TextField()
+
+
+class PrivateMessage(Message):
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
