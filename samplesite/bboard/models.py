@@ -50,8 +50,18 @@ class Bb(models.Model):
             raise ValidationError(errors)
 
 
+class RubricManager(models.Manager):
+    def get_queryset(self):
+        return super().get_queryset().order_by('order', 'name')
+
+    def order_by_bb_count(self):
+        return super().get_queryset().annotate(cnt=models.Count('bb')).order_by('-cnt')
+
+
 class Rubric(models.Model):
     name = models.CharField(max_length=20, db_index=True, verbose_name='Название')
+    objects = models.Manager()
+    bbs = RubricManager()
 
     def __str__(self):
         return self.name
@@ -63,5 +73,3 @@ class Rubric(models.Model):
         verbose_name_plural = 'Рубрики'
         verbose_name = 'Рубрика'
         ordering = ['name']
-
-
